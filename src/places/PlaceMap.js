@@ -5,21 +5,39 @@ import PlaceHolder from './PlaceHolder';
 export default ({
   locations = [],
   mapCenter = { lat: 0, lon: 0 },
-  zoom = 11
+  zoom = 11,
+  selectPlace,
+  selectedPlace
 }) => {
-  const placeholders = locations.map((place) => (
-    <PlaceHolder
-      lat={place.location.latitude}
-      lng={place.location.longitude}
-      name={place.name}
-    />
-  ));
+  const placeholders = locations.map((place) => {
+    let selected = false;
+
+    if (selectedPlace) {
+      selected = selectedPlace.id === place.id;
+    }
+
+    return (
+      <PlaceHolder
+        key={place.id}
+        data={place}
+        lat={place.location.latitude}
+        lng={place.location.longitude}
+        select={selectPlace}
+        selected={selected}
+      />
+    );
+  });
 
   return (
-    <div style={{ height: '50vh', width: '100%' }}>
+    <div style={style}>
       <GoogleMap defaultCenter={mapCenter} defaultZoom={zoom}>
         {placeholders}
       </GoogleMap>
     </div>
   );
+};
+
+const style = {
+  height: '40vh',
+  width: '100%'
 };
