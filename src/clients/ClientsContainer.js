@@ -11,12 +11,16 @@ export class HistoryContainer extends Component {
     super(props);
 
     this.state = {
-      selectedClient: undefined
+      selectedClient: null
     };
   }
 
   componentWillMount() {
     this.props.getClients();
+  }
+
+  onSubmitOptions = (data) => {
+    console.log(data);
   }
 
   setSelectedClient = (selectedClient) => (
@@ -37,7 +41,10 @@ export class HistoryContainer extends Component {
         </div>
         <div style={styles.infoContainer}>
           <div style={styles.optionsContainer}>
-            <PlaceOptionsCard />
+            <PlaceOptionsCard
+              client={this.state.selectedClient}
+              onSubmit={this.onSubmitOptions}
+            />
           </div>
           <div style={styles.clientInfoContainer}>
             <ClientInfoCard client={this.state.selectedClient} />
