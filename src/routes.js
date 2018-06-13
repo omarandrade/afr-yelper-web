@@ -9,10 +9,12 @@ import {
 import AppContainer from './layout/AppContainer';
 import ClientsContainer from './clients/ClientsContainer';
 import HomeContainer from './home/HomeContainer';
+import PlacesContainer from './places/PlacesContainer';
 
 const routeNames = {
   clients: 'clients',
-  home: 'home'
+  home: 'home',
+  places: 'places'
 };
 
 const routes = (
@@ -21,6 +23,7 @@ const routes = (
       <IndexRedirect to={routeNames.clients} />
       <Route component={ClientsContainer} path={routeNames.clients} />
       <Route component={HomeContainer} path={routeNames.home} />
+      <Route component={PlacesContainer} path={routeNames.places} />
     </Route>
     <Redirect path="*" to={routeNames.clients} />
   </Router>

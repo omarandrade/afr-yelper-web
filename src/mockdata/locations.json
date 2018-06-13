@@ -1,0 +1,73 @@
+{
+  "locations": [
+    {
+      "id": "ZOmtBrfpEFKLc_aGcsPrvg",
+      "name": "Collective Lakefront",
+      "image":
+        "https://s3-media4.fl.yelpcdn.com/bphoto/_mIw74fyyjYKh8GK_nTeaA/o.jpg",
+      "rating": 5,
+      "cost": 1,
+      "nm_rating": 3,
+      "phone": "xxx-xxx-xxxx",
+      "distance": 1000,
+      "location": {
+        "address1": "1701 N Lincoln Memorial Dr",
+        "address2": "",
+        "address3": "",
+        "city": "Milwaukee",
+        "zip_code": "53202",
+        "country": "US",
+        "state": "WI",
+        "display_address": [
+          "1701 N Lincoln Memorial Dr",
+          "Milwaukee, WI 53202"
+        ],
+        "latitude": 43.0535610152195,
+        "longitude": -87.8868182982865
+      },
+      "comments": [
+        {
+          "author": "Omar Andrade",
+          "text": "The hipsters run a good shop."
+        },
+        {
+          "author": "Tony DiPerna",
+          "text": "There was too much coffee to focus."
+        }
+      ]
+    },
+    {
+      "id": "LUzm7f-YF64UIRaDHWWXLQ",
+      "name": "Stonecreek Coffee",
+      "image":
+        "https://s3-media1.fl.yelpcdn.com/bphoto/QtJ_FXMzCuoOhxz4_sbvLQ/o.jpg",
+      "rating": 4,
+      "cost": 1,
+      "nm_rating": 1,
+      "phone": "xxx-xxx-xxxx",
+      "distance": 1000,
+      "location": {
+        "address1": "275 W Wisconsin Ave",
+        "address2": "",
+        "address3": "",
+        "city": "Milwaukee",
+        "zip_code": "53203",
+        "country": "US",
+        "state": "WI",
+        "display_address": ["275 W Wisconsin Ave", "Milwaukee, WI 53203"],
+        "latitude": 43.0383566916435,
+        "longitude": -87.9128935610992
+      },
+      "comments": [
+        {
+          "author": "Leo Carbajal",
+          "text": "I like dis place."
+        },
+        {
+          "author": "Tommy Lloyd",
+          "text": "I find their tea very refreshing."
+        }
+      ]
+    }
+  ]
+}
