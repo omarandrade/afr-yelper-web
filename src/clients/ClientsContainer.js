@@ -6,7 +6,7 @@ import ClientInfoCard from './ClientInfoCard';
 import PlaceOptionsCard from './PlaceOptionsCard';
 import { getClients } from '../actions';
 
-export class HistoryContainer extends Component {
+export class ClientsContainer extends Component {
   constructor(props) {
     super(props);
 
@@ -92,4 +92,4 @@ export const mapDispatchToProps = (dispatch) => ({
   getClients: () => dispatch(getClients())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(HistoryContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(ClientsContainer);
