@@ -22,7 +22,7 @@ const getClients = () => (
         }
 
         resolve({ clients });
-      }, 2000);
+      }, 200);
     })
   ))
 );
