@@ -30,7 +30,7 @@ const getClients = () => (
         }
 
         resolve({ clients });
-      }, 200);
+      }, 400);
     })
   ))
 );
