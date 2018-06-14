@@ -3,7 +3,9 @@ import {
   Card,
   Chip,
   Typography,
-  IconButton
+  IconButton,
+  Checkbox,
+  FormControlLabel
 } from '@material-ui/core';
 import {
   Send
@@ -31,7 +33,7 @@ const styles = {
   sendToClient: {
     alignItems: 'center',
     display: 'flex',
-    justifyContent: 'flex-end',
+    justifyContent: 'space-between',
     paddingTop: '10px'
   }
 };
@@ -67,9 +69,13 @@ export default class ScheduleCard extends Component {
     const availableTimes = Math.floor(Math.random() * Math.floor(7));
     const times = [];
     for (let index = 0; index < availableTimes; index += 1) {
-      times.push(moment().minute(0).hour((Math.floor(Math.random() * Math.floor(12)) + 7)).format('h:mm a'));
+      const timeToInsert = moment().minute(0).hour((Math.floor(Math.random() * Math.floor(12)) + 7));
+      if (times.filter((time) => time.format('h:mm a') === timeToInsert.format('h:mm a')).length === 0) {
+        times.push(timeToInsert);
+      }
     }
-    return times;
+    times.sort((a, b) => a > b);
+    return times.map((time) => time.format('h:mm a'));
   }
 
   render() {
@@ -91,7 +97,25 @@ export default class ScheduleCard extends Component {
           )
         }
         <div style={styles.sendToClient}>
-          <Typography variant="subheader">Send times to client.</Typography><IconButton><Send /></IconButton>
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={this.state.checkedB}
+                value="checkedB"
+              />
+            }
+            label="Email"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox
+                checked={this.state.checkedB}
+                value="checkedB"
+              />
+            }
+            label="Text"
+          />
+          <Typography variant="subheading">Send times to client.</Typography><IconButton><Send /></IconButton>
         </div>
       </Card>
     );
@@ -101,7 +125,7 @@ export default class ScheduleCard extends Component {
 const DateTab = ({ availableDate }) => (
   <div style={styles.dateHeadings}>
     <div style={styles.chips}>
-      <Typography variant="subheader">{availableDate.date}</Typography>
+      <Typography variant="subheading">{availableDate.date}</Typography>
     </div>
     {
       availableDate.times.length === 0 ?
