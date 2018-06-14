@@ -1,3 +1,4 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
@@ -7,6 +8,7 @@ import PlaceList from './PlaceList';
 import PlaceDetails from './PlaceDetails';
 import placeMockData from '../mockdata/locations.json';
 import userMockData from '../mockdata/user.json';
+import { getPlaceDetails } from '../actions';
 
 class PlacesContainer extends Component {
   state = {
@@ -23,7 +25,14 @@ class PlacesContainer extends Component {
 
   selectPlace = (data) => {
     this.setState({
-      selectedPlace: data
+      selectedPlace: data,
+      selectedPlaceDetails: null
+    });
+
+    this.props.getDetails(data.yelpId).then((results) => {
+      this.setState({
+        selectedPlaceDetails: results.data
+      });
     });
   };
 
@@ -54,7 +63,11 @@ class PlacesContainer extends Component {
                 <p>Select a location from the map</p>
               </Paper>
             ) : (
-              <PlaceDetails data={this.state.selectedPlace} />
+              <PlaceDetails
+                data={this.state.selectedPlace}
+                details={this.state.selectedPlaceDetails}
+                loading={this.props.placeDetailsLoading}
+              />
             )}
           </Grid>
           <Grid item sm={8}>
@@ -70,9 +83,17 @@ class PlacesContainer extends Component {
   }
 }
 
-export const mapStateToProps = () => ({
-  places: placeMockData.locations,
-  user: userMockData
+export const mapDispatchToProps = (dispatch, props) => ({
+  getDetails: (data) => dispatch(getPlaceDetails(data))
 });
 
-export default connect(mapStateToProps)(PlacesContainer);
+export const mapStateToProps = (state) => ({
+  places: placeMockData,
+  user: userMockData,
+  placeDetailsLoading: state.places.detailsLoading
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(PlacesContainer);

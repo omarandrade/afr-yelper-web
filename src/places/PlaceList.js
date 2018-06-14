@@ -25,20 +25,18 @@ class PlaceList extends Component {
             <TableCell>Address</TableCell>
             <TableCell>Distance (miles)</TableCell>
             <TableCell>Phone</TableCell>
-            <TableCell numeric>Cost Rating</TableCell>
-            <TableCell numeric>Thumbs Up</TableCell>
-            <TableCell numeric>Thumbs Down</TableCell>
+            <TableCell numeric>Cost ($-$$$$)</TableCell>
+            <TableCell numeric>NM Rating</TableCell>
             <TableCell numeric>Yelp Rating</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
           {this.props.places.map((place) => {
-            const displayAddress = place.location.display_address.join(', ');
-            const selected = place.id === this.props.selectedPlace.id;
+            const selected = place.yelpId === this.props.selectedPlace.yelpId;
 
             return (
               <TableRow
-                key={place.id}
+                key={place.yelpId}
                 hover
                 onClick={() => this.selectItem(place)}
                 selected={selected}
@@ -46,12 +44,11 @@ class PlaceList extends Component {
                 <TableCell component="th" scope="row">
                   {place.name}
                 </TableCell>
-                <TableCell>{displayAddress}</TableCell>
+                <TableCell>{place.display_address}</TableCell>
                 <TableCell>{this.metersToMiles(place.distance)}</TableCell>
                 <TableCell>{place.phone}</TableCell>
-                <TableCell>{place.cost}</TableCell>
-                <TableCell>{place.nm_rating}</TableCell>
-                <TableCell>{place.nm_rating}</TableCell>
+                <TableCell>{place.display_cost}</TableCell>
+                <TableCell>{place.nmReview}</TableCell>
                 <TableCell>{place.rating}</TableCell>
               </TableRow>
             );
