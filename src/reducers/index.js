@@ -2,8 +2,8 @@ import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import auth from './auth';
 import clients from './clients';
-import sample from './sample';
 import places from './places';
+import sample from './sample';
 
 export default combineReducers({
   auth,

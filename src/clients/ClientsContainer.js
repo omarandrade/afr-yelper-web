@@ -4,7 +4,7 @@ import Loader from '../shared/Loader';
 import ClientsList from './ClientsList';
 import ClientInfoCard from './ClientInfoCard';
 import PlaceOptionsCard from './PlaceOptionsCard';
-import { getClients } from '../actions';
+import { getClients, getPlaces } from '../actions';
 
 export class ClientsContainer extends Component {
   constructor(props) {
@@ -20,7 +20,7 @@ export class ClientsContainer extends Component {
   }
 
   onSubmitOptions = (data) => {
-    console.log({
+    this.props.getPlaces({
       ...data,
       grade: this.state.selectedClient.grade,
       id: this.state.selectedClient.id
@@ -32,9 +32,9 @@ export class ClientsContainer extends Component {
   )
 
   render() {
-    const { clients, isLoading } = this.props;
+    const { clients, isLoadingClients, isLoadingPlaces } = this.props;
 
-    if (isLoading) {
+    if (isLoadingClients || isLoadingPlaces) {
       return <Loader />;
     }
 
@@ -84,16 +84,18 @@ const styles = {
 };
 
 export const mapStateToProps = (state) => {
-  const { clients } = state;
+  const { clients, places } = state;
 
   return {
     clients: clients.clients,
-    isLoading: clients.isLoading
+    isLoadingClients: clients.isLoading,
+    isLoadingPlaces: places.isLoading
   };
 };
 
 export const mapDispatchToProps = (dispatch) => ({
-  getClients: () => dispatch(getClients())
+  getClients: () => dispatch(getClients()),
+  getPlaces: (data) => dispatch(getPlaces(data))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClientsContainer);
