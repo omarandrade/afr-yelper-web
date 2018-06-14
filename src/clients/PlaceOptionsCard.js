@@ -63,8 +63,8 @@ const PlaceOptionsCard = (props) => {
           <div style={styles.fieldContainerRow}>
             <Field
               component={SelectField}
-              label="Type of Event"
-              name="type"
+              label="Category of Event"
+              name="category"
               style={{ ...styles.formField, ...styles.formFieldLeft }}
               validate={validators.required}
             >

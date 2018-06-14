@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { browserHistory } from 'react-router';
 import Loader from '../shared/Loader';
 import ClientsList from './ClientsList';
 import ClientInfoCard from './ClientInfoCard';
 import PlaceOptionsCard from './PlaceOptionsCard';
 import { getClients, getPlaces } from '../actions';
+import { routeNames } from '../routes';
 
 export class ClientsContainer extends Component {
   constructor(props) {
@@ -23,7 +25,8 @@ export class ClientsContainer extends Component {
     this.props.getPlaces({
       ...data,
       grade: this.state.selectedClient.grade,
-      id: this.state.selectedClient.id
+      id: this.state.selectedClient.id,
+      location: 53202
     });
   }
 
@@ -95,7 +98,14 @@ export const mapStateToProps = (state) => {
 
 export const mapDispatchToProps = (dispatch) => ({
   getClients: () => dispatch(getClients()),
-  getPlaces: (data) => dispatch(getPlaces(data))
+  getPlaces: (data) => (
+    dispatch(getPlaces(data))
+      .then((result) => {
+        if (result.ok) {
+          browserHistory.push(`/${routeNames.places}`);
+        }
+      })
+  )
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(ClientsContainer);
