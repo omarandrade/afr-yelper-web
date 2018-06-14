@@ -13,15 +13,15 @@ export default ({
     let selected = false;
 
     if (selectedPlace) {
-      selected = selectedPlace.id === place.id;
+      selected = selectedPlace.yelpId === place.yelpId;
     }
 
     return (
       <PlaceHolder
-        key={place.id}
+        key={place.yelpId}
         data={place}
-        lat={place.location.latitude}
-        lng={place.location.longitude}
+        lat={place.latitude}
+        lng={place.longitude}
         select={selectPlace}
         selected={selected}
       />
