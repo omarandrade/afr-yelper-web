@@ -1,10 +1,17 @@
-import { GET_PLACES, GET_PLACE_DETAILS } from '../constants/actionTypes';
+import {
+  GET_PLACES,
+  GET_PLACE_DETAILS,
+  PLACE_SELECTED
+} from '../constants/actionTypes';
 
 export const initialState = {
   detailsLoading: false,
   isLoading: false,
-  places: []
+  places: [],
+  selectedPlace: null
 };
+
+const placeSort = (a, b) => b.nmReview - a.nmReview || a.distance - b.distance;
 
 export default (state = initialState, action) => {
   switch (action.type) {
@@ -24,7 +31,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        places: action.data.places
+        places: action.data.places.sort(placeSort)
       };
 
     case GET_PLACE_DETAILS.request:
@@ -43,6 +50,11 @@ export default (state = initialState, action) => {
       return {
         ...state,
         detailsLoading: false
+      };
+    case PLACE_SELECTED:
+      return {
+        ...state,
+        selectedPlace: action.data
       };
 
     default:

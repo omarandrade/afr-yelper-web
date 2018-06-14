@@ -5,7 +5,6 @@ import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import ListSubheader from '@material-ui/core/ListSubheader';
-import Paper from '@material-ui/core/Paper';
 import { COLORS_BY_GRADE } from '../styles/colors';
 
 const sortGrades = (first, second) => {
@@ -48,41 +47,39 @@ const ClientsList = ({ clients = [], onPressItem }) => {
   }, {});
 
   return (
-    <Paper>
-      <List style={styles.list} subheader={<li />}>
-        {Object.keys(clientsByGrade).sort(sortGrades).map((currentGrade) => (
-          <li key={`grade-${currentGrade}`}>
-            <ul style={styles.subheaderContainer}>
-              <ListSubheader style={(COLORS_BY_GRADE[currentGrade] || {})}>
-                {currentGrade ? `Grade ${currentGrade}` : 'No Grade'}
-              </ListSubheader>
-              {clientsByGrade[currentGrade].sort(sortClientsByLastContact).map((currentClient) => {
-                const clientLocation = `${currentClient.homeCity}, ${currentClient.homeState}`;
-                const lastContactedFormatted = moment(currentClient.lastContacted).format('MMM D, YYYY');
+    <List style={styles.list} subheader={<li />}>
+      {Object.keys(clientsByGrade).sort(sortGrades).map((currentGrade) => (
+        <li key={`grade-${currentGrade}`}>
+          <ul style={styles.subheaderContainer}>
+            <ListSubheader style={(COLORS_BY_GRADE[currentGrade] || {})}>
+              {currentGrade ? `Grade ${currentGrade}` : 'No Grade'}
+            </ListSubheader>
+            {clientsByGrade[currentGrade].sort(sortClientsByLastContact).map((currentClient) => {
+              const clientLocation = `${currentClient.homeCity}, ${currentClient.homeState}`;
+              const lastContactedFormatted = moment(currentClient.lastContacted).format('MMM D, YYYY');
 
-                return (
-                  <ListItem key={currentClient.id} button onClick={() => onPressItem(currentClient)}>
-                    <Avatar style={(COLORS_BY_GRADE[currentGrade] || {})}>
-                      {currentClient.grade}
-                    </Avatar>
-                    <ListItemText
-                      primary={currentClient.name}
-                      secondary={`${clientLocation} · ${lastContactedFormatted}`}
-                    />
-                  </ListItem>
-                );
-              })}
-            </ul>
-          </li>
-        ))}
-      </List>
-    </Paper>
+              return (
+                <ListItem key={currentClient.id} button onClick={() => onPressItem(currentClient)}>
+                  <Avatar style={(COLORS_BY_GRADE[currentGrade] || {})}>
+                    {currentClient.grade}
+                  </Avatar>
+                  <ListItemText
+                    primary={currentClient.name}
+                    secondary={`${clientLocation} · ${lastContactedFormatted}`}
+                  />
+                </ListItem>
+              );
+            })}
+          </ul>
+        </li>
+      ))}
+    </List>
   );
 };
 
 const styles = {
   list: {
-    maxHeight: 'calc(100vh - 32px)',
+    maxHeight: 'calc(100vh - 56px)',
     overflow: 'auto',
     padding: 0,
     position: 'relative',
