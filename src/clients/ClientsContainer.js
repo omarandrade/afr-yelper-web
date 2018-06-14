@@ -20,7 +20,11 @@ export class ClientsContainer extends Component {
   }
 
   onSubmitOptions = (data) => {
-    console.log(data);
+    console.log({
+      ...data,
+      grade: this.state.selectedClient.grade,
+      id: this.state.selectedClient.id
+    });
   }
 
   setSelectedClient = (selectedClient) => (
