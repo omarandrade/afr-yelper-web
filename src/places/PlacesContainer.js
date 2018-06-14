@@ -3,13 +3,14 @@ import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
-//import { browserHistory } from 'react-router';
+import { browserHistory } from 'react-router';
 import PlaceMap from './PlaceMap';
 import PlaceList from './PlaceList';
 import PlaceDetails from './PlaceDetails';
 import placeMockData from '../mockdata/locations.json';
 import userMockData from '../mockdata/user.json';
 import { getPlaceDetails, selectPlace } from '../actions';
+import { routeNames } from '../routes';
 import '../styles/places.scss';
 
 class PlacesContainer extends Component {
@@ -38,7 +39,7 @@ class PlacesContainer extends Component {
 
   scheduleAtPlace = (data) => {
     this.props.selectPlace(data);
-    //browserHistory.push(`/${routeNames.places}`);
+    browserHistory.push(`/${routeNames.scheduler}`);
   };
 
   render() {
