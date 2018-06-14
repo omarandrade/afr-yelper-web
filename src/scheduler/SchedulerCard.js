@@ -1,23 +1,40 @@
-/* eslint-disable */
 import React, { Component } from 'react';
 import {
   Card,
-  CardHeader,
   Chip,
-  Typography
+  Typography,
+  IconButton
 } from '@material-ui/core';
+import {
+  Send
+} from '@material-ui/icons';
 import moment from 'moment';
 import WeekSelector from './WeekSelector';
 
 const styles = {
   chips: {
-    margin: '0px 4px'
+    margin: '4px 4px'
   },
   container: {
     margin: '16px 16px 8px 8px',
     padding: '4px 8px'
+  },
+  dateHeadings: {
+    marginTop: '8px'
+  },
+  datesContainer: {
+    marginTop: '8px'
+  },
+  noTimePadding: {
+    margin: '4px 4px'
+  },
+  sendToClient: {
+    alignItems: 'center',
+    display: 'flex',
+    justifyContent: 'flex-end',
+    paddingTop: '10px'
   }
-}
+};
 
 export default class ScheduleCard extends Component {
   constructor(props) {
@@ -60,7 +77,7 @@ export default class ScheduleCard extends Component {
     const locationName = this.props.location.name;
     return (
       <Card style={styles.container}>
-        <Typography variant="display1">Scheduling a meeting with {clientName} at {locationName}.</Typography>
+        <Typography variant="title">Scheduling a meeting with {clientName} at {locationName}.</Typography>
         <WeekSelector updateAvailability={this.updateAvailability} />
         {
           this.state.availableDates.map((availableDate) =>
@@ -68,22 +85,30 @@ export default class ScheduleCard extends Component {
               <DateTab
                 key={`${availableDate.date}`}
                 availableDate={availableDate}
+                style={styles.datesContainer}
               />
             )
           )
         }
+        <div style={styles.sendToClient}>
+          <Typography variant="subheader">Send times to client.</Typography><IconButton><Send /></IconButton>
+        </div>
       </Card>
     );
   }
 }
 
 const DateTab = ({ availableDate }) => (
-  <div>
-    <p>{availableDate.date}</p>
+  <div style={styles.dateHeadings}>
+    <div style={styles.chips}>
+      <Typography variant="subheader">{availableDate.date}</Typography>
+    </div>
     {
-      availableDate.times.length === 0?
-        <Typography variant="body2">No times available on this date. </Typography> :
-        availableDate.times.map((time) => <Chip key={`${time}${availableDate.date}`} label={time} style={styles.chips}/>)
+      availableDate.times.length === 0 ?
+        <div style={styles.noTimePadding}>
+          <Typography variant="body2">No times available on this date. </Typography>
+        </div> :
+      availableDate.times.map((time) => <Chip key={`${time}${availableDate.date}`} label={time} style={styles.chips} />)
     }
   </div>
 );
