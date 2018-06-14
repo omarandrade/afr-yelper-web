@@ -24,7 +24,7 @@ export default (state = initialState, action) => {
       return {
         ...state,
         isLoading: false,
-        places: action.data.businesses
+        places: action.data.places
       };
 
     case GET_PLACE_DETAILS.request:

@@ -17,7 +17,7 @@ const SelectField = (props) => {
 
   const hasError = touched && (error || warning);
   return (
-    <FormControl style={style}>
+    <FormControl style={{ ...styles.container, ...style }}>
       <InputLabel htmlFor={`${name}-select`}>{label}</InputLabel>
       <Select
         inputProps={{
@@ -33,6 +33,13 @@ const SelectField = (props) => {
       {hasError && <FormHelperText>{hasError}</FormHelperText>}
     </FormControl>
   );
+};
+
+const styles = {
+  container: {
+    marginBottom: 8,
+    marginTop: 16
+  }
 };
 
 export default SelectField;

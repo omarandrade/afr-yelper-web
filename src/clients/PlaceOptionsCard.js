@@ -4,6 +4,8 @@ import Button from '@material-ui/core/Button';
 import Card from '@material-ui/core/Card';
 import CardActions from '@material-ui/core/CardActions';
 import CardContent from '@material-ui/core/CardContent';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemText from '@material-ui/core/ListItemText';
 import MenuItem from '@material-ui/core/MenuItem';
 import { SelectField, TextField } from '../shared/form-fields';
 import validators from '../shared/form-fields/validators';
@@ -11,19 +13,40 @@ import validators from '../shared/form-fields/validators';
 const PlaceOptionsCard = (props) => {
   const { client, handleSubmit, invalid, onSubmit, submitting } = props;
 
+  if (!client) {
+    return null;
+  }
+
+  const clientHomeAddress = `${client.homeAddress} ${client.homeCity}, ${client.homeState}`;
+  const clientWorkAddress = `${client.workAddress} ${client.workCity}, ${client.workState}`;
+
   return (
     <Card style={styles.container}>
       <form onSubmit={handleSubmit(onSubmit)} style={styles.formContainer}>
         <CardContent style={styles.cardContent}>
-          <div style={styles.fieldContainerLeft}>
+          <div style={styles.fieldContainerRow}>
             <Field
-              component={TextField}
-              fullWidth
-              label="Max Miles from Client Home"
-              name="milesFromHome"
-              type="number"
+              component={SelectField}
+              label="Client Location"
+              name="location"
+              style={styles.formField}
               validate={validators.required}
-            />
+            >
+              <ListItem ContainerComponent="div" value={clientHomeAddress}>
+                <ListItemText
+                  primary={clientHomeAddress}
+                  secondary="Home"
+                />
+              </ListItem>
+              <ListItem value={clientWorkAddress}>
+                <ListItemText
+                  primary={clientWorkAddress}
+                  secondary="Work"
+                />
+              </ListItem>
+            </Field>
+          </div>
+          <div style={styles.fieldContainerRow}>
             <Field
               component={SelectField}
               label="Cost of Event"
@@ -37,20 +60,12 @@ const PlaceOptionsCard = (props) => {
               <MenuItem value="$$$$">$$$$</MenuItem>
             </Field>
           </div>
-          <div style={styles.fieldContainerRight}>
-            <Field
-              component={TextField}
-              fullWidth
-              label="Max Miles from Client Work"
-              name="milesFromWork"
-              type="number"
-              validate={validators.required}
-            />
+          <div style={styles.fieldContainerRow}>
             <Field
               component={SelectField}
-              label="Type of Event"
-              name="type"
-              style={styles.formField}
+              label="Category of Event"
+              name="category"
+              style={{ ...styles.formField, ...styles.formFieldLeft }}
               validate={validators.required}
             >
               <MenuItem value="any">Any</MenuItem>
@@ -58,12 +73,20 @@ const PlaceOptionsCard = (props) => {
               <MenuItem value="drinks">Drinks</MenuItem>
               <MenuItem value="entertainment">Entertainment</MenuItem>
             </Field>
+            <Field
+              component={TextField}
+              fullWidth
+              label="Client Radius (mi)"
+              name="radius"
+              type="number"
+              validate={validators.required}
+            />
           </div>
         </CardContent>
         <CardActions style={styles.cardActions}>
           <Button
             color="primary"
-            disabled={!client || invalid || submitting}
+            disabled={invalid || submitting}
             type="submit"
           >
             Submit
@@ -82,18 +105,14 @@ const styles = {
   },
   cardContent: {
     display: 'flex',
-    flexDirection: 'row'
+    flexDirection: 'column'
   },
   container: {
     height: 'calc(40vh - 32px)'
   },
-  fieldContainerLeft: {
-    flex: 1,
-    paddingRight: 8
-  },
-  fieldContainerRight: {
-    flex: 1,
-    paddingLeft: 8
+  fieldContainerRow: {
+    display: 'flex',
+    flexDirection: 'row'
   },
   formContainer: {
     display: 'flex',
@@ -104,9 +123,8 @@ const styles = {
   formField: {
     width: '100%'
   },
-  title: {
-    fontSize: 14,
-    marginBottom: 16
+  formFieldLeft: {
+    paddingRight: 8
   }
 };
 

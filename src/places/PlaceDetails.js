@@ -12,6 +12,8 @@ const PlaceDetails = ({ data, loading }) => {
     <Paper>
       <div style={logoStyle} />
       <h1>{data.name}</h1>
+      <p>{data.phone}</p>
+      <p>{data.display_address}</p>
       {loading ? <Loader /> : <p>Store Hours Go Here</p>}
     </Paper>
   );
