@@ -1,11 +1,23 @@
+/* eslint-disable */
 import React, { Component } from 'react';
 import {
   Card,
   CardHeader,
-  Chip
+  Chip,
+  Typography
 } from '@material-ui/core';
 import moment from 'moment';
 import WeekSelector from './WeekSelector';
+
+const styles = {
+  chips: {
+    margin: '0px 4px'
+  },
+  container: {
+    margin: '16px 16px 8px 8px',
+    padding: '4px 8px'
+  }
+}
 
 export default class ScheduleCard extends Component {
   constructor(props) {
@@ -21,7 +33,6 @@ export default class ScheduleCard extends Component {
   }
 
   updateAvailability(currentWeek = moment().day(0)) {
-    console.log('updating avail');
     const availableDates = [];
     for (let index = 0; index < 7; index += 1) {
       const shiftedDate = currentWeek.day(index);
@@ -30,8 +41,6 @@ export default class ScheduleCard extends Component {
         times: this.generateTimes()
       });
     }
-    console.log('generated avail');
-    console.log(availableDates);
     this.setState({
       availableDates
     });
@@ -40,11 +49,9 @@ export default class ScheduleCard extends Component {
   generateTimes() {
     const availableTimes = Math.floor(Math.random() * Math.floor(7));
     const times = [];
-    console.log(`${availableTimes} times to be generated`);
     for (let index = 0; index < availableTimes; index += 1) {
-      times.push(moment().hour((Math.floor(Math.random() * Math.floor(12)) + 7)).format('h:mm a'));
+      times.push(moment().minute(0).hour((Math.floor(Math.random() * Math.floor(12)) + 7)).format('h:mm a'));
     }
-    console.log(times);
     return times;
   }
 
@@ -52,10 +59,8 @@ export default class ScheduleCard extends Component {
     const clientName = this.props.client.name;
     const locationName = this.props.location.name;
     return (
-      <Card>
-        <CardHeader title="Scheduling a meeting" />
-        <p>with {clientName}</p>
-        <p>at {locationName}</p>
+      <Card style={styles.container}>
+        <Typography variant="display1">Scheduling a meeting with {clientName} at {locationName}.</Typography>
         <WeekSelector updateAvailability={this.updateAvailability} />
         {
           this.state.availableDates.map((availableDate) =>
@@ -74,9 +79,11 @@ export default class ScheduleCard extends Component {
 
 const DateTab = ({ availableDate }) => (
   <div>
-    <h4>{availableDate.date}</h4>
+    <p>{availableDate.date}</p>
     {
-      availableDate.times.map((time) => <Chip key={`${time}${availableDate.date}`} label={time} />)
+      availableDate.times.length === 0?
+        <Typography variant="body2">No times available on this date. </Typography> :
+        availableDate.times.map((time) => <Chip key={`${time}${availableDate.date}`} label={time} style={styles.chips}/>)
     }
   </div>
 );

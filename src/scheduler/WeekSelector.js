@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import { IconButton } from '@material-ui/core';
-import { NavigateAfter, NavigateBefore } from '@material-ui/icons';
+// import { IconButton } from '@material-ui/core';
+// import { NavigateAfter, NavigateBefore } from '@material-ui/icons';
 import moment from 'moment';
 
 export default class WeekSelector extends Component {
@@ -32,9 +32,9 @@ export default class WeekSelector extends Component {
     return (
       <div>
         {/* <IconButton onClick={this.incrementWeek}><NavigateBefore /></IconButton> */}
-        <IconButton><NavigateBefore /></IconButton>
+        {/* <IconButton><NavigateBefore /></IconButton> */}
         <p>Week of {this.state.currentWeek.format('MMMM Do')}</p>
-        <IconButton><NavigateAfter /></IconButton>
+        {/* <IconButton><NavigateAfter /></IconButton> */}
         {/* <IconButton onClick={this.decrementWeek}><NavigateAfter /></IconButton> */}
       </div>
     );

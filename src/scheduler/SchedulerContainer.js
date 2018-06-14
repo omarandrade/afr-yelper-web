@@ -29,24 +29,12 @@ export class SchedulerContainer extends Component {
 }
 
 const styles = {
-  clientInfoContainer: {
-    flex: 0.3,
-    margin: '8px 16px 16px 8px'
-  },
-  clientListColumnCard: {
-    flex: 0.1,
-    margin: '16px 8px 16px 16px'
-  },
   container: {
     display: 'flex',
-    flexDirection: 'row'
-  },
-  placesContainer: {
-    flex: 0.3,
-    margin: '8px 16px 16px 8px'
+    flexDirection: 'row',
+    width: '100%'
   },
   schedulerContainer: {
-    flex: 0.3,
     margin: '8px 16px 16px 8px'
   }
 };
