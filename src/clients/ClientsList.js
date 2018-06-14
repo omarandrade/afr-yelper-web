@@ -8,9 +8,15 @@ import ListSubheader from '@material-ui/core/ListSubheader';
 import Paper from '@material-ui/core/Paper';
 import { COLORS_BY_GRADE } from '../styles/colors';
 
-const sortClientsByLastContact = (first, second) => (
-  moment(first.lastContacted).isSameOrBefore(moment(second.lastContacted))
-);
+const sortClientsByLastContact = (first, second) => {
+  if (first.lastContacted < second.lastContacted) {
+    return -1;
+  } else if (first.lastContacted > second.lastContacted) {
+    return 1;
+  }
+
+  return 0;
+};
 
 const ClientsList = ({ clients = [], onPressItem }) => {
   const clientsByGrade = clients.reduce((currentClientsByGrade, currentClient) => {
