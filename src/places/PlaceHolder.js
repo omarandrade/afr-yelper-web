@@ -12,20 +12,11 @@ class PlaceHolder extends Component {
   };
 
   render() {
+    const classes =
+      'places--placeholder' + (this.props.selected ? ' active' : '');
     return (
-      <div
-        style={{
-          alignItems: 'center',
-          background: this.props.selected ? 'red' : 'gray',
-          color: 'white',
-          display: 'inline-flex',
-          justifyContent: 'center',
-          padding: '15px 10px',
-          textAlign: 'center'
-        }}
-        onClick={this.selectMe}
-      >
-        {this.props.data.name}
+      <div className={classes} onClick={this.selectMe}>
+        {this.props.num}
       </div>
     );
   }

@@ -3,12 +3,14 @@ import React, { Component } from 'react';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import { connect } from 'react-redux';
+//import { browserHistory } from 'react-router';
 import PlaceMap from './PlaceMap';
 import PlaceList from './PlaceList';
 import PlaceDetails from './PlaceDetails';
-// import placeMockData from '../mockdata/locations.json';
+import placeMockData from '../mockdata/locations.json';
 import userMockData from '../mockdata/user.json';
-import { getPlaceDetails } from '../actions';
+import { getPlaceDetails, selectPlace } from '../actions';
+import '../styles/places.scss';
 
 class PlacesContainer extends Component {
   state = {
@@ -17,9 +19,7 @@ class PlacesContainer extends Component {
 
   componentWillMount() {
     if (this.props.places.length) {
-      this.setState({
-        selectedPlace: this.props.places[0]
-      });
+      this.selectPlace(this.props.places[0]);
     }
   }
 
@@ -36,6 +36,11 @@ class PlacesContainer extends Component {
     });
   };
 
+  scheduleAtPlace = (data) => {
+    this.props.selectPlace(data);
+    //browserHistory.push(`/${routeNames.places}`);
+  };
+
   render() {
     // TODO: consider where this is coming from.
     const mapCenter = {
@@ -45,7 +50,6 @@ class PlacesContainer extends Component {
 
     return (
       <div>
-        <h1>Places and Stuff</h1>
         <Grid container spacing={16}>
           <Grid item sm={8}>
             <Paper>
@@ -67,10 +71,11 @@ class PlacesContainer extends Component {
                 data={this.state.selectedPlace}
                 details={this.state.selectedPlaceDetails}
                 loading={this.props.placeDetailsLoading}
+                schedule={this.scheduleAtPlace}
               />
             )}
           </Grid>
-          <Grid item sm={8}>
+          <Grid item sm={12}>
             <PlaceList
               places={this.props.places}
               select={this.selectPlace}
@@ -84,17 +89,18 @@ class PlacesContainer extends Component {
 }
 
 export const mapDispatchToProps = (dispatch, props) => ({
-  getDetails: (data) => dispatch(getPlaceDetails(data))
+  getDetails: (data) => dispatch(getPlaceDetails(data)),
+  selectPlace: (data) => dispatch(selectPlace(data))
 });
 
 export const mapStateToProps = (state) => {
-  const { places } = state;
+  const { places, auth } = state;
 
   return {
     places: places.places,
-    user: userMockData,
+    user: auth.user,
     placeDetailsLoading: places.detailsLoading
-  }
+  };
 };
 
 export default connect(
