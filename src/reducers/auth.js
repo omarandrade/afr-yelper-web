@@ -2,7 +2,7 @@ import { LOGIN } from '../constants/actionTypes';
 
 export const initialState = {
   isLoading: false,
-  isLoggedIn: true,
+  isLoggedIn: false,
   user: {}
 };
 
