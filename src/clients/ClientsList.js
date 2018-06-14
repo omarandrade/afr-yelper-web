@@ -33,7 +33,7 @@ const sortClientsByLastContact = (first, second) => {
   return 0;
 };
 
-const ClientsList = ({ clients = [], onPressItem }) => {
+const ClientsList = ({ clients = [], onClickItem }) => {
   const clientsByGrade = clients.reduce((currentClientsByGrade, currentClient) => {
     const copiedClientsByGrade = { ...currentClientsByGrade };
 
@@ -59,7 +59,7 @@ const ClientsList = ({ clients = [], onPressItem }) => {
               const lastContactedFormatted = moment(currentClient.lastContacted).format('MMM D, YYYY');
 
               return (
-                <ListItem key={currentClient.id} button onClick={() => onPressItem(currentClient)}>
+                <ListItem key={currentClient.id} button onClick={() => onClickItem(currentClient)}>
                   <Avatar style={(COLORS_BY_GRADE[currentGrade] || {})}>
                     {currentClient.grade}
                   </Avatar>

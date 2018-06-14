@@ -91,7 +91,7 @@ export default class ScheduleCard extends Component {
           )
         }
         <div style={styles.sendToClient}>
-          <Typography variant="subheader">Send times to client.</Typography><IconButton><Send /></IconButton>
+          <Typography variant="subheading">Send times to client.</Typography><IconButton><Send /></IconButton>
         </div>
       </Card>
     );
@@ -101,7 +101,7 @@ export default class ScheduleCard extends Component {
 const DateTab = ({ availableDate }) => (
   <div style={styles.dateHeadings}>
     <div style={styles.chips}>
-      <Typography variant="subheader">{availableDate.date}</Typography>
+      <Typography variant="subheading">{availableDate.date}</Typography>
     </div>
     {
       availableDate.times.length === 0 ?

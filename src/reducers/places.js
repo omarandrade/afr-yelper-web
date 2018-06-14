@@ -8,7 +8,7 @@ export const initialState = {
   detailsLoading: false,
   isLoading: false,
   places: [],
-  selectedPlace: null
+  selectedPlaceDetails: null
 };
 
 const placeSort = (a, b) => b.nmReview - a.nmReview || a.distance - b.distance;
@@ -54,7 +54,7 @@ export default (state = initialState, action) => {
     case PLACE_SELECTED:
       return {
         ...state,
-        selectedPlace: action.data
+        selectedPlaceDetails: action.data
       };
 
     default:
