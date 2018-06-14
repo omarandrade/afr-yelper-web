@@ -32,13 +32,10 @@ const putAsync = (endpoint, data) => (
   })
 );
 
-const makeFetch = (endpoint, options) => {
-  const paramPrefix = endpoint.indexOf('?') > -1 ? '&' : '?';
-  const randomParam = Math.floor(Math.random() * (1000000));
-
-  return fetch(`${endpoint}${paramPrefix}ieisdumb=${randomParam}`, options)
-    .then(handleResponse);
-};
+const makeFetch = (endpoint, options) => (
+  fetch(endpoint, options)
+    .then(handleResponse)
+);
 
 const handleResponse = (response) => (
   response.json().then((json) => {

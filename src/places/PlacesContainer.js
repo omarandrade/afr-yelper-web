@@ -6,7 +6,7 @@ import { connect } from 'react-redux';
 import PlaceMap from './PlaceMap';
 import PlaceList from './PlaceList';
 import PlaceDetails from './PlaceDetails';
-import placeMockData from '../mockdata/locations.json';
+// import placeMockData from '../mockdata/locations.json';
 import userMockData from '../mockdata/user.json';
 import { getPlaceDetails } from '../actions';
 
@@ -87,11 +87,15 @@ export const mapDispatchToProps = (dispatch, props) => ({
   getDetails: (data) => dispatch(getPlaceDetails(data))
 });
 
-export const mapStateToProps = (state) => ({
-  places: placeMockData,
-  user: userMockData,
-  placeDetailsLoading: state.places.detailsLoading
-});
+export const mapStateToProps = (state) => {
+  const { places } = state;
+
+  return {
+    places: places.places,
+    user: userMockData,
+    placeDetailsLoading: places.detailsLoading
+  }
+};
 
 export default connect(
   mapStateToProps,
