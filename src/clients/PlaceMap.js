@@ -13,7 +13,11 @@ const PlaceMap = (props) => {
 
   return (
     <div style={style}>
-      <GoogleMap defaultCenter={mapCenter} defaultZoom={zoom}>
+      <GoogleMap
+        bootstrapURLKeys={{ key: 'AIzaSyBJ1WOpw6DarmSkPcEeNHxgdFxnBkSWiME' }}
+        defaultCenter={mapCenter}
+        defaultZoom={zoom}
+      >
         {locations.map((place, index) => {
           const selected = selectedPlace && selectedPlace.yelpId === place.yelpId;
 
