@@ -4,9 +4,10 @@ import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
 import CardHeader from '@material-ui/core/CardHeader';
 import Typography from '@material-ui/core/Typography';
+import ScheduleOptions from './ScheduleOptions';
 import { COLORS_BY_GRADE } from '../styles/colors';
 
-const ClientInfoCard = ({ client }) => {
+const ClientInfoCard = ({ client, onSubmit }) => {
   if (!client) {
     return null;
   }
@@ -54,6 +55,7 @@ const ClientInfoCard = ({ client }) => {
             <Typography variant="body1">{client.notes}</Typography>
           </div>
         </div>
+        <ScheduleOptions client={client} onSubmit={onSubmit} />
       </CardContent>
     </Card>
   );
@@ -61,7 +63,7 @@ const ClientInfoCard = ({ client }) => {
 
 const styles = {
   container: {
-    maxHeight: 'calc(60vh - 32px)',
+    maxHeight: 'calc(100vh - 32px)',
     overflow: 'auto'
   },
   contentContainer: {
