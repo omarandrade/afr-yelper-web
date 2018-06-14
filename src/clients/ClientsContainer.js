@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
+import { Icon } from '@material-ui/core';
+import { Map, RecentActors } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import Loader from '../shared/Loader';
 import ClientsList from './ClientsList';
 import ClientInfoCard from './ClientInfoCard';
-import PlaceOptionsCard from './PlaceOptionsCard';
+// import PlaceOptionsCard from './PlaceOptionsCard';
 import { getClients } from '../actions';
 
 export class ClientsContainer extends Component {
@@ -40,15 +42,21 @@ export class ClientsContainer extends Component {
           <ClientsList clients={clients} onPressItem={this.setSelectedClient} />
         </div>
         <div style={styles.infoContainer}>
-          <div style={styles.optionsContainer}>
-            <PlaceOptionsCard
-              client={this.state.selectedClient}
-              onSubmit={this.onSubmitOptions}
-            />
-          </div>
           <div style={styles.clientInfoContainer}>
-            <ClientInfoCard client={this.state.selectedClient} />
+            {
+              this.state.selectedClient ?
+                <ClientInfoCard
+                  client={this.state.selectedClient}
+                  onSubmit={this.onSubmitOptions}
+                /> :
+                <div style={styles.clientPlaceholderContainer}>
+                  <Icon style={styles.placeholderIconContainer} ><RecentActors style={styles.placeholderIcon} /></Icon>
+                </div>
+            }
           </div>
+        </div>
+        <div style={styles.placesPlaceholderContainer}>
+          <Icon style={styles.placeholderIconContainer} ><Map style={styles.placeholderIcon} /></Icon>
         </div>
       </div>
     );
@@ -57,24 +65,48 @@ export class ClientsContainer extends Component {
 
 const styles = {
   clientInfoContainer: {
-    flex: 0.6,
     margin: '8px 16px 16px 8px'
   },
   clientListContainer: {
     flex: 0.4,
     margin: '16px 8px 16px 16px'
   },
+  clientPlaceholderContainer: {
+    alignItems: 'center',
+    display: 'flex',
+    flex: 0.4,
+    justifyContent: 'center',
+    margin: '16px 16px 8px 8px'
+  },
   container: {
     display: 'flex',
     flexDirection: 'row'
   },
   infoContainer: {
+    alignItems: 'center',
     display: 'flex',
-    flex: 0.6,
-    flexDirection: 'column'
+    flex: 0.4,
+    flexDirection: 'row',
+    justifyContent: 'center'
   },
   optionsContainer: {
     flex: 0.4,
+    margin: '16px 16px 8px 8px'
+  },
+  placeholderIcon: {
+    fontSize: '100',
+    opacity: '.6'
+  },
+  placeholderIconContainer: {
+    display: 'flex',
+    height: '100px',
+    width: '100px'
+  },
+  placesPlaceholderContainer: {
+    alignItems: 'center',
+    display: 'flex',
+    flex: 0.2,
+    justifyContent: 'center',
     margin: '16px 16px 8px 8px'
   }
 };

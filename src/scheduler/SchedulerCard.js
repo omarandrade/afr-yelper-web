@@ -40,8 +40,8 @@ const SchedulerCard = ({ client = {
   return (
     <Card>
       <CardHeader title="Scheduling a meeting" />
-      <h3>with {clientName}</h3>
-      <h4>at {locationName}</h4>
+      <p>with {clientName}</p>
+      <p>at {locationName}</p>
       {
         dates.map((availableDate) => <DateTab availableDate={availableDate} />)
       }
@@ -51,9 +51,9 @@ const SchedulerCard = ({ client = {
 
 const DateTab = ({ availableDate }) => (
   <div>
-    <h2>{availableDate.date}</h2>
+    <h4>{availableDate.date}</h4>
     {
-      availableDate.times.map((time) => <Chip title={time} />)
+      availableDate.times.map((time) => <Chip label={time} />)
     }
   </div>
 );

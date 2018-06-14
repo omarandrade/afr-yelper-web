@@ -13,9 +13,10 @@
   "license": "ISC",
   "dependencies": {
     "@material-ui/core": "^1.2.1",
+    "@material-ui/icons": "^1.1.0",
     "faker": "^4.1.0",
-    "moment": "^2.22.2",
     "google-map-react": "^1.0.4",
+    "moment": "^2.22.2",
     "promise-polyfill": "^8.0.0",
     "react": "^16.4.0",
     "react-dom": "^16.4.0",
