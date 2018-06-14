@@ -1,38 +1,28 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { Card } from '@material-ui/core';
-import Loader from '../shared/Loader';
-import ClientInfoCard from '../clients/ClientInfoCard';
-import PlacesContainer from '../places/PlacesContainer';
+// import { Card } from '@material-ui/core';
+// import Loader from '../shared/Loader';
 import SchedulerCard from './SchedulerCard';
 import { getClients } from '../actions';
 
-export class ClientsContainer extends Component {
-  componentWillMount() {
-    this.props.getClients();
+export class SchedulerContainer extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      client: {
+        name: 'Omar'
+      },
+      location: {
+        name: 'pollo loco'
+      }
+    };
   }
 
   render() {
-    const { selectedClient, isLoading } = this.props;
-
-    if (isLoading) {
-      return <Loader />;
-    }
-
     return (
       <div style={styles.container}>
-        <div style={styles.clientColumnContainer}>
-          <Card style={styles.clientColumnCard} />
-        </div>
-        <div style={styles.clientInfoContainer}>
-          <ClientInfoCard client={selectedClient} />
-        </div>
-        <div style={styles.placesContainer}>
-          <PlacesContainer />
-        </div>
-        <div style={styles.placesContainer}>
-          <SchedulerCard />
-        </div>
+        <SchedulerCard client={this.state.client} location={this.state.location} />
       </div>
     );
   }
@@ -74,4 +64,4 @@ export const mapDispatchToProps = (dispatch) => ({
   getClients: () => dispatch(getClients())
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ClientsContainer);
+export default connect(mapStateToProps, mapDispatchToProps)(SchedulerContainer);
