@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { Icon } from '@material-ui/core';
-import { Map, RecentActors } from '@material-ui/icons';
 import { connect } from 'react-redux';
 import { browserHistory } from 'react-router';
 import Loader from '../shared/Loader';
+import Blade from './Blade';
 import ClientsList from './ClientsList';
 import ClientInfoCard from './ClientInfoCard';
-// import PlaceOptionsCard from './PlaceOptionsCard';
 import { getClients, getPlaces } from '../actions';
 import { routeNames } from '../routes';
 
@@ -15,6 +13,8 @@ export class ClientsContainer extends Component {
     super(props);
 
     this.state = {
+      clientInfoOpen: false,
+      clientListOpen: true,
       selectedClient: null
     };
   }
@@ -33,7 +33,11 @@ export class ClientsContainer extends Component {
   }
 
   setSelectedClient = (selectedClient) => (
-    this.setState({ selectedClient })
+    this.setState({
+      clientInfoOpen: true,
+      clientListOpen: false,
+      selectedClient
+    })
   )
 
   render() {
@@ -45,76 +49,39 @@ export class ClientsContainer extends Component {
 
     return (
       <div style={styles.container}>
-        <div style={styles.clientListContainer}>
+        <Blade
+          label="Clients"
+          onClick={() => (
+            this.setState({
+              clientInfoOpen: false,
+              clientListOpen: true
+            })
+          )}
+          open={this.state.clientListOpen}
+        >
           <ClientsList clients={clients} onPressItem={this.setSelectedClient} />
-        </div>
-        <div style={styles.infoContainer}>
-          <div style={styles.clientInfoContainer}>
-            {
-              this.state.selectedClient ?
-                <ClientInfoCard
-                  client={this.state.selectedClient}
-                  onSubmit={this.onSubmitOptions}
-                /> :
-                <div style={styles.clientPlaceholderContainer}>
-                  <Icon style={styles.placeholderIconContainer} ><RecentActors style={styles.placeholderIcon} /></Icon>
-                </div>
-            }
-          </div>
-        </div>
-        <div style={styles.placesPlaceholderContainer}>
-          <Icon style={styles.placeholderIconContainer} ><Map style={styles.placeholderIcon} /></Icon>
-        </div>
+        </Blade>
+        <Blade
+          label="Client Info"
+          onClick={() => (
+            this.setState((prevState) => ({
+              clientInfoOpen: prevState.selectedClient,
+              clientListOpen: !prevState.selectedClient
+            }))
+          )}
+          open={this.state.clientInfoOpen}
+        >
+          <ClientInfoCard client={this.state.selectedClient} onSubmit={this.onSubmitOptions} />
+        </Blade>
       </div>
     );
   }
 }
 
 const styles = {
-  clientInfoContainer: {
-    margin: '8px 16px 16px 8px'
-  },
-  clientListContainer: {
-    flex: 0.4,
-    margin: '16px 8px 16px 16px'
-  },
-  clientPlaceholderContainer: {
-    alignItems: 'center',
-    display: 'flex',
-    flex: 0.4,
-    justifyContent: 'center',
-    margin: '16px 16px 8px 8px'
-  },
   container: {
     display: 'flex',
     flexDirection: 'row'
-  },
-  infoContainer: {
-    alignItems: 'center',
-    display: 'flex',
-    flex: 0.4,
-    flexDirection: 'row',
-    justifyContent: 'center'
-  },
-  optionsContainer: {
-    flex: 0.4,
-    margin: '16px 16px 8px 8px'
-  },
-  placeholderIcon: {
-    fontSize: '100',
-    opacity: '.6'
-  },
-  placeholderIconContainer: {
-    display: 'flex',
-    height: '100px',
-    width: '100px'
-  },
-  placesPlaceholderContainer: {
-    alignItems: 'center',
-    display: 'flex',
-    flex: 0.2,
-    justifyContent: 'center',
-    margin: '16px 16px 8px 8px'
   }
 };
 
