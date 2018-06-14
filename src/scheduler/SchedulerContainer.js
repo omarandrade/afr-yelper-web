@@ -1,28 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-// import { Card } from '@material-ui/core';
-// import Loader from '../shared/Loader';
 import SchedulerCard from './SchedulerCard';
 import { getClients } from '../actions';
 
 export class SchedulerContainer extends Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      client: {
-        name: 'Omar'
-      },
-      location: {
-        name: 'pollo loco'
-      }
-    };
+  componentDidMount() {
+    // success
   }
 
   render() {
+    let { client, location } = this.props;
+    client = client || { name: 'Omar' };
+    location = location || { name: 'Pollo loco' };
     return (
       <div style={styles.container}>
-        <SchedulerCard client={this.state.client} location={this.state.location} />
+        <SchedulerCard client={client} location={location} />
       </div>
     );
   }
@@ -40,11 +32,12 @@ const styles = {
 };
 
 export const mapStateToProps = (state) => {
-  const { clients } = state;
+  const { clients, places } = state;
 
   return {
     clients: clients.clients,
-    isLoading: clients.isLoading
+    isLoading: clients.isLoading,
+    location: places.selectedPlace
   };
 };
 

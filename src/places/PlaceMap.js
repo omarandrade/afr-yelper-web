@@ -31,7 +31,11 @@ export default ({
 
   return (
     <div style={style}>
-      <GoogleMap defaultCenter={mapCenter} defaultZoom={zoom}>
+      <GoogleMap
+        bootstrapURLKeys={{ key: 'AIzaSyBJ1WOpw6DarmSkPcEeNHxgdFxnBkSWiME' }}
+        defaultCenter={mapCenter}
+        defaultZoom={zoom}
+      >
         {placeholders}
       </GoogleMap>
     </div>
